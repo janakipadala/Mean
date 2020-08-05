@@ -1,8 +1,26 @@
 const express = require('express');
+const bodyparser = require("body-parser");
 
 const app = express();
 
-app.use('/api/posts', (req, res, next) => {
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: false}));
+
+app.use((req, res, next )=>{
+  res.setHeader("Access-control-Allow-Origin", "*");
+  res.setHeader("Access-control-Allow-Headers", "Origin, X-Requested-with, Content-Type, Accept");
+  res.setHeader("Acess-Control-Allow-,Methods", "GET, POST,PATCH,DELETE,OPTIONS");
+  next();
+});
+
+app.post("/api/posts",(req,res, next)=>{
+  const posts = req.body;
+  console.log(post);
+  res.status(201).json({
+    message: 'Post added successfully'
+  });
+});
+app.get('/api/posts', (req, res, next) => {
 const posts= [
 {
   id: 'fad',
